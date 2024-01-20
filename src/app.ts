@@ -1,4 +1,3 @@
-import { envs } from './config/plugins/envs.pugin';
 import { Server } from "./presentation/server";
 
 (async() => {

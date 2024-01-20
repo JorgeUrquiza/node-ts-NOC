@@ -16,8 +16,8 @@ export class FileSystemDataSource implements LogDataSource {
     }
 
     private createLogsFiles = () => {
-        if ( !fs.existsSync( this.logPath ) ) {
-            fs.mkdirSync( this.logPath );
+        if ( !fs.existsSync( this.logPath ) ) { // si no existe el directorio logs lo creamos
+            fs.mkdirSync( this.logPath ); 
         }
 
         [
@@ -37,7 +37,7 @@ export class FileSystemDataSource implements LogDataSource {
 
         const logAsJson = `${ JSON.stringify(newLog) }\n`; // asi evitamos la deuda tecnica
         
-        fs.appendFileSync( this.allLogsPath, logAsJson )
+        fs.appendFileSync( this.allLogsPath, logAsJson ) // guardamos en el archivo de todos los logs
 
         if ( newLog.level === LogSeverityLevel.low ) return;
 
@@ -49,7 +49,7 @@ export class FileSystemDataSource implements LogDataSource {
 
     }
 
-    private getLogsFromFile = ( path: string ): LogEntity[] => {
+    private getLogsFromFile = ( path: string ): LogEntity[] => { 
         const content = fs.readFileSync( path, 'utf-8' );
         const logs = content.split('\n').map(
             log => LogEntity.fromJson( log ) 
@@ -58,7 +58,7 @@ export class FileSystemDataSource implements LogDataSource {
         return logs;
     }
 
-    async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+    async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> { 
         
         switch ( severityLevel ) {
             case LogSeverityLevel.low:
